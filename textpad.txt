@@ -1,0 +1,37 @@
+Your identification has been saved in /Users/ayinlakwamdeen/.ssh/id_ed25519
+Your public key has been saved in /Users/ayinlakwamdeen/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:iIOj0wYK88QXrprqxSoCJYYolAN46J+r6Xdsd/sMhmc ayinlakwamdeen@Ayinlas-MacBook-Pro-3.local
+The key's randomart image is:
++--[ED25519 256]--+
+|+..              |
+|o+.              |
+|=.. .            |
+|=+.o o .         |
+|*o* * . S        |
+|+B.* .  .        |
+|= =oo  . E       |
+|o=+o + .+.o      |
+|X*o o . ..oo     |
++----[SHA256]-----+
+
+
+
+
+
+packer build -var "efs_mount_point=fs-0a91b212e13f4f918.efs.us-west-2.amazonaws.com" jenkins-controller.pkr.hcl
+
+
+
+aws ec2 describe-vpc-attribute --vpc-id vpc-0de14e8fbcbe9410a --attribute enableDnsSupport
+aws ec2 describe-vpc-attribute --vpc-id vpc-0de14e8fbcbe9410a --attribute enableDnsHostnames
+
+
+
+aws ec2 modify-vpc-attribute \
+    --vpc-id vpc-0de14e8fbcbe9410a \
+    --enable-dns-support
+
+aws ec2 modify-vpc-attribute \
+    --vpc-id vpc-0de14e8fbcbe9410a \
+    --enable-dns-hostnames

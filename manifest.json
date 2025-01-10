@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "name": "jenkins",
+      "builder_type": "amazon-ebs",
+      "build_time": 1736527580,
+      "files": null,
+      "artifact_id": "us-west-2:ami-000169331f5bcca0f",
+      "packer_run_uuid": "33f65c36-ba2f-8148-e2ce-6cb79746a990",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "33f65c36-ba2f-8148-e2ce-6cb79746a990"
+}
