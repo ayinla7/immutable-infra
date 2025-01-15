@@ -23,15 +23,15 @@ packer build -var "efs_mount_point=fs-0a91b212e13f4f918.efs.us-west-2.amazonaws.
 
 
 
-aws ec2 describe-vpc-attribute --vpc-id vpc-0de14e8fbcbe9410a --attribute enableDnsSupport
-aws ec2 describe-vpc-attribute --vpc-id vpc-0de14e8fbcbe9410a --attribute enableDnsHostnames
+packer build -var "public_key_path=/devops-tools/jenkins/id_rsa.pub" jenkins-agent.pkr.hcl
 
 
 
-aws ec2 modify-vpc-attribute \
-    --vpc-id vpc-0de14e8fbcbe9410a \
-    --enable-dns-support
 
-aws ec2 modify-vpc-attribute \
-    --vpc-id vpc-0de14e8fbcbe9410a \
-    --enable-dns-hostnames
+
+
+
+
+
+
+

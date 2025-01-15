@@ -20,6 +20,26 @@ source "amazon-ebs" "jenkins" {
   source_ami    = "${var.ami_id}"
   ssh_username  = "ubuntu"
   iam_instance_profile = "jenkins-instance-profile"
+      # Add these VPC configurations
+  vpc_id                      = "vpc-0de14e8fbcbe9410a" # Replace with your VPC ID
+  subnet_id                   = "subnet-01033882bf86e7175" # Replace with your subnet ID
+  associate_public_ip_address = true
+  ssh_interface = "public_ip"
+
+    # Add a temporary security group rule for SSH
+  ssh_timeout = "10m"
+  ssh_port    = 22
+
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
+              systemctl restart sshd
+              EOF
+
+
+
+
+
   tags = {
     Env  = "dev"
     Name = "${local.app_name}"

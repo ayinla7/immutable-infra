@@ -27,13 +27,36 @@
     name: ansible
     state: latest
 
-- name: Add HashiCorp GPG key
-  become: yes
-  shell: "wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg"
+# - name: Add HashiCorp GPG key
+#   become: yes
+#   shell: "wget -qO- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg"
 
-- name: Add HashiCorp APT repository
-  become: yes
-  shell: "echo 'deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main' | sudo tee /etc/apt/sources.list.d/hashicorp.list"
+# - name: Add HashiCorp APT repository
+#   become: yes
+#   shell: "echo 'deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main' | sudo tee /etc/apt/sources.list.d/hashicorp.list"
+
+# In your jenkins-agent.yaml playbook
+- name: Add HashiCorp repository
+  block:
+    - name: Create apt sources directory
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+
+    - name: Download HashiCorp GPG key
+      shell: |
+        wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg
+
+    - name: Add HashiCorp repository
+      shell: |
+        echo "deb [signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+  become: true
+
 
 - name: Update apt cache
   become: yes
